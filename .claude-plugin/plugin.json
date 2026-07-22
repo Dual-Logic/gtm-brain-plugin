@@ -1,0 +1,28 @@
+{
+  "name": "gtm-brain",
+  "displayName": "GTM Brain",
+  "version": "0.1.0",
+  "description": "Interviews a business operator and produces a tiered, org-specific GTM-Brain spec: a Strategy Readout (operator-facing) over a Build Spec (technical-team-facing). A self-serve build kit — run a guided, resumable, multi-phase interview and walk out with a spec your team can stand up a credible v1 from. Play-first and tool-agnostic: it discovers the plays that matter to your org and captures your actual named tools; it ships no vendor connectors and never calls your tools.",
+  "author": {
+    "name": "Dual Logic",
+    "email": "brady@duallogic.ai",
+    "url": "https://duallogic.ai"
+  },
+  "homepage": "https://github.com/Dual-Logic/gtm-brain-plugin",
+  "repository": "https://github.com/Dual-Logic/gtm-brain-plugin",
+  "license": "UNLICENSED",
+  "keywords": [
+    "gtm",
+    "go-to-market",
+    "gtm-brain",
+    "revops",
+    "sales",
+    "marketing",
+    "interview",
+    "spec",
+    "build-kit",
+    "tool-agnostic",
+    "dual-logic",
+    "ypo"
+  ]
+}
