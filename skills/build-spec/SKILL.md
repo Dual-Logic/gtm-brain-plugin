@@ -25,6 +25,8 @@ Load the skeleton (`${CLAUDE_PLUGIN_ROOT}/reference/gtm-brain-skeleton.md`), the
 - *professional services:* relationship-strength facts (with decay), bid/no-bid expected value, conflict/independence as a blocking gate.
 - *SaaS:* buying-committee mapping, intent facts, expected-value prioritization.
 
+**Build on what they already run.** Check the captured tools and automations for existing internal primitives — a hiring-signal watcher, an autonomous drafter with a no-send gate, outreach/deal-review commands — and map the architecture, *especially the L8 agent roster and the L7 policy*, onto them: extend and connect what exists rather than proposing parallel new agents. If they already run a trigger subagent, the trigger-watch agent **is** that one — say so, tag it, and note what to change, not what to rebuild. For a lean team, "extend the tools you have" is a completely different (cheaper, faster) build than "stand up new agents."
+
 Fill **Part 2 — Build Spec** of the template for *this* org:
 
 - **2.1 Architecture body (L0–L10 + spines)** — the org-specific fill for each skeleton layer, driven by the priority decisions. Anchor the whole body on the org's **unit of decision**.
@@ -33,6 +35,17 @@ Fill **Part 2 — Build Spec** of the template for *this* org:
 - **2.4 Worked example** — one priority decision traced Observe → Orient → Decide → Act → Learn. Always include it; it's the clearest build-credibility artifact.
 
 **Tag every material decision** with `[Stated]`, `[Proposed — confirmed]` (mark as `[Proposed]` until the owner ratifies), or `[Open — needs your team]`. Anything the org hasn't supplied and you can't safely infer is `[Open]` — never fabricate a value. Anything a chosen decision needs but the org lacks (a data source, a capability, a tool) is `[Open]`, with what's required stated.
+
+## Step 1b — Feasibility research (system-architect agent)
+
+Before walking the owner through the draft, pressure-test whether it's actually buildable on their stack — don't assume the integrations exist. Spawn the **system-architect agent** (`${CLAUDE_PLUGIN_ROOT}/skills/build-spec/agents/system-architect.md`), passing the draft's capability→tool pairings, the priority decisions, and the unit of decision. It researches each tool's real integration surface (APIs, webhooks, official MCP servers, reverse-ETL support) and returns a feasibility verdict per capability plus a recommended home for the decision logic.
+
+Fold its findings back into the body:
+- **§2.2 capability → tool table** — add each pairing's feasibility note with a citation, tagged `[Proposed]` (the builder verifies exact endpoints), or `[Open — needs your team]` where the agent found a genuine gap.
+- **Open Items** — route every `gap` it reports (a capability with no tool, or a tool with no viable integration for what a decision needs) to `[Open]`, with what's required.
+- **Decision-engine home** — use its recommendation to ground how and where the Brain runs (skeleton L7/L8), tagged `[Proposed]`.
+
+**If the agent returns `no_web_access`** (or no research tool exists): don't block — keep the capability→tool mappings as prose-level `[Proposed]`, and add one Open Item noting that integration feasibility (APIs/MCPs) still needs a builder to confirm.
 
 ## Step 2 — Refine by reacting (one item at a time, with a recommendation)
 
@@ -72,3 +85,6 @@ When the high-risk items are confirmed and the body is drafted end to end, updat
 - Confirm high-risk items strictly one at a time, each with a clear recommendation the owner reacts to — never batch two or three together.
 - Bound the confirm loop by risk and time; low-risk `[Proposed]` items ride to Open Items rather than a full interrogation.
 - Hold to the skeleton's layers — never collapse the fact layer or the models layer into events/features/policy. The event clock and the models-compute / LLMs-narrate split are non-negotiable; Step 3 checks for them.
+- Feasibility is researched, not assumed — the system-architect agent's findings enter the spec as `[Proposed]` with citations; genuine integration gaps become `[Open]`, never hand-waved.
+- Build on the org's existing internal tools — map the agent roster onto what they already run (extend, don't reinvent); a parallel new agent where they already have one is waste.
+- Ground specifics — illustrate the worked example with a real captured account or a clearly-generic archetype ("a 250-person Series-B SaaS company"), never an invented named account/date/event.
